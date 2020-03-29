@@ -1,0 +1,32 @@
+<mat-accordion *ngIf="showSwearTime">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       SWEAR TIME
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="new-task-container">
+
+      <mat-form-field class="example-full-width  ">
+        <mat-label>Choose a date</mat-label>
+        <input #fromInputValue matInput [matDatepicker]="fromInput" (dateChange)="addEventMinDate('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="fromInput"></mat-datepicker-toggle>
+        <mat-datepicker #fromInput></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width ">
+        <mat-label>Choose a date</mat-label>
+        <input #toInputValue matInput [matDatepicker]="toInput" (dateChange)="addEventMaxDate('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="toInput"></mat-datepicker-toggle>
+        <mat-datepicker #toInput></mat-datepicker>
+      </mat-form-field>
+    </mat-card>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!--<mat-form-field class="example-full-width">-->
+<!--  <mat-label>Choose a date</mat-label>-->
+<!--  <input matInput  [matDatepicker]="picker3" (dateChange)="addEventCurentDate('change', $event)">-->
+<!--  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
+<!--  <mat-datepicker #picker3></mat-datepicker>-->
+<!--</mat-form-field>-->
