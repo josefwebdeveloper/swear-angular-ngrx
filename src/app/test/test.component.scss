@@ -8,3 +8,15 @@
   justify-content: center;
   flex-direction: column;
 }
+
+//Responsive Design************************************
+
+// up to 768
+@media screen and (max-width: 767px) {
+  .cdk-overlay-pane {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -13,12 +13,30 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import { CalendarComponent } from './calendar/calendar.component';
 import {DataService} from './services/data.service';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store/app.state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/effects/app.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
     CalendarComponent,
+    LoginComponent,
+    SignupComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,11 +44,26 @@ import {DataService} from './services/data.service';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    StoreModule.forRoot(reducers, {
+      // metaReducers,
+      // runtimeChecks: {
+      //   strictStateImmutability: true,
+      //   strictActionImmutability: true,
+      // }
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AppEffects]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     ApiService,
-    MatDatepickerModule,
+    // MatDatepickerModule,
     DataService
   ],
   bootstrap: [AppComponent]
