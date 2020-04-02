@@ -1,13 +1,71 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect } from '@ngrx/effects';
+import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {Action, Store} from '@ngrx/store';
+import {Observable, of} from 'rxjs';
+import {mergeMap, catchError, map, tap} from 'rxjs/operators';
 
-
+import * as fromAuth from '../actions/auth.actions';
+import * as fromError from '../actions/error.action';
+import {AppState} from '../app.state';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../models/user';
 
 @Injectable()
-export class AppEffects {
+export class AuthEffects {
+  constructor(
+    private action$: Actions,
+    private store: Store<AppState>,
+    private authService: AuthService
+  ) {
+  }
 
+  @Effect()
+  setInitialUser$: Observable<Action> = this.action$.pipe(
+    ofType<fromAuth.SetInitialUser>(fromAuth.AuthActions.SET_INITIAL_USER),
+    tap(() => this.store.dispatch(new fromError.RemoveError())),
+    mergeMap((action: fromAuth.SetInitialUser) =>
+      this.authService.whoami().pipe(
+        map((user: User) => new fromAuth.SetCurrentUser(user)),
+        catchError(err => {
+          this.store.dispatch(new fromAuth.SetCurrentUser(null));
+          this.authService.token = null;
+          return of(new fromError.AddError(err.error));
+        })
+      )
+    )
+  );
 
+  @Effect()
+  loginUser$: Observable<Action> = this.action$.pipe(
+    ofType<fromAuth.LoginUser>(fromAuth.AuthActions.LOGIN_USER),
+    tap(() => this.store.dispatch(new fromError.RemoveError())),
+    // tap(() => console.log('login')),
+    mergeMap((action: fromAuth.LoginUser) =>
+      this.authService.auth('login', action.payload).pipe(
+        map((user: User) => new fromAuth.SetCurrentUser(user)),
+        catchError(err => {
+          this.store.dispatch(new fromAuth.SetCurrentUser(null));
+          this.authService.token = null;
+          return of(new fromError.AddError(err.error));
+        })
+      )
+    )
+  );
 
-  constructor(private actions$: Actions) {}
-
+  @Effect()
+  registerUser$: Observable<Action> = this.action$.pipe(
+    ofType<fromAuth.RegisterUser>(fromAuth.AuthActions.REGISTER_USER),
+    tap(() => this.store.dispatch(new fromError.RemoveError())),
+    // tap(() => console.log('register')),
+    mergeMap((action: fromAuth.RegisterUser) =>
+      this.authService.auth('register', action.payload).pipe(
+        map((user: User) => new fromAuth.SetCurrentUser(user)),
+        catchError(err => {
+          this.store.dispatch(new fromAuth.SetCurrentUser(null));
+          this.authService.token = null;
+          return of(new fromError.AddError(err.error));
+        })
+      )
+    )
+  );
 }

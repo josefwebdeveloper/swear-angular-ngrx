@@ -1,11 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item [routerLink]="['/auth']" (click)="drawer.toggle()">Login/Registration</a>
+      <!--      <a mat-list-item [routerLink]="['/auth']" (click)="goToAuth()">Login/Registration</a>-->
       <a mat-list-item href="#">Link 2</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
@@ -20,7 +21,8 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>SWEAR</span>
+      <span [routerLink]="['/']">SWEAR     <span (click)="onClick()">{{(curUser$|async)?.username}}</span> <span
+        (click)="cho()">hhhhhhh</span></span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

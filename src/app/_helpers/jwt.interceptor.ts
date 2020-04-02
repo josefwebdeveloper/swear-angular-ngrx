@@ -15,15 +15,14 @@ export class JwtInterceptor implements HttpInterceptor {
     // const currentUser = this.authenticationService.currentUserValue;
     // const isLoggedIn = currentUser && currentUser.token;
     // tslint:disable-next-line:prefer-const
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Impvc2VwZjEyMjIzIiwiaWF0IjoxNTg1MzkxNTE5LCJleHAiOjE1ODU0NDU1MTl9.l7uN2eig9w-wahO5GWC4CsADDxRUvuuMwFrr-9nvdks';
+    // const token =
     // const isApiUrl = request.url.startsWith(environment.apiUrl);
     // if (isLoggedIn && isApiUrl) {
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    // request = request.clone({
+    //   setHeaders: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // });
     // }
 
     return next.handle(request);

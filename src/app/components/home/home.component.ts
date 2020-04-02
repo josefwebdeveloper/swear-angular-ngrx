@@ -1,20 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ApiService} from '../services/api.service';
-import {Task} from '../model/task';
+import {ApiService} from '../../services/api.service';
+import {Task} from '../../models/task';
 import * as moment from 'moment';
-import {DataService} from '../services/data.service';
+import {DataService} from '../../services/data.service';
 import {MatInput} from '@angular/material/input';
 
 // import {format} from 'path';
 
 @Component({
   selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class TestComponent implements OnInit {
+export class HomeComponent implements OnInit {
   minDate: Date = null;
   maxDate: Date = null;
   events: string[] = [];

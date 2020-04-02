@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatCalendarCellCssClasses} from '@angular/material/datepicker';
-import {DataService} from '../services/data.service';
+import {DataService} from '../../services/data.service';
 import {Subscription} from 'rxjs';
 import * as moment from 'moment';
 
@@ -23,7 +23,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   show = true;
   startDate: Date = null;
   endDate: Date = null;
-  // datesToHighlight = ['2020-01-19T18:30:00.000Z', '2020-01-22T18:30:00.000Z', '2019-01-24T18:30:00.000Z', '2019-01-28T18:30:00.000Z', '2019-01-24T18:30:00.000Z', '2019-01-23T18:30:00.000Z', '2019-01-22T18:30:00.000Z', '2019-01-25T18:30:00.000Z'];
 
   datesToHighlight = [];
 
